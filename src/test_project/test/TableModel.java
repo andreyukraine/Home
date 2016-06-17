@@ -29,20 +29,19 @@ public class TableModel extends AbstractTableModel {
         return "";
     }
 
-    @Override
+
     //количество строк
     public int getRowCount() {
         return dataArrayList.size();
     }
 
-    @Override
     //количество колонок
     public int getColumnCount() {
 
         return columnCount;
     }
 
-    @Override
+
     //получает значение с конкретной ячейки таблицы
     public Object getValueAt(int rowIndex, int columnIndex) {
         String[] rows = dataArrayList.get(rowIndex);

@@ -1,4 +1,6 @@
-package test_project.model;
+package test_project.test;
+
+import test_project.model.MyDate;
 
 import java.awt.*;
 
