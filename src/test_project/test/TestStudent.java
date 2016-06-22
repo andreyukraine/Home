@@ -4,10 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
 
 
 /**
@@ -36,48 +33,128 @@ public class TestStudent {
         menu.add(menuItem3);
         menu.add(menuItem4);
 
-        menuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new addStudent();
-            }
-        });
 
-        //Выводим по символьно значение файла
         FileReader reader = null;
+        String[] nb = new String[100];
         try {
             reader = new FileReader("C:\\Users\\IT\\Desktop/document.doc");
 
-            String mass[];
+            System.out.println(nb);
+            String line = null;
+            try (BufferedReader br = new BufferedReader(reader)) {
+                int i = 0;
+                while ((line = br.readLine()) != null) {
+                    nb[i] = i + " " + line;
+                    // System.out.println(i + line);
+                    i++;
 
-            Scanner scanner = new Scanner(reader);
-
-            while (scanner.hasNextInt()) {
-                mass[]=scanner.nextLine();
-                System.out.println(scanner.nextInt());
+                }
             }
 
 
-//            String line = null;
-//            try(BufferedReader br = new BufferedReader(reader)) {
-//                while((line = br.readLine()) != null){
-//                    System.out.println(line);
-//                  //  frame.add();
-//                }
-//            }
-
-            // читаем посимвольно
-//            int c;
-//            while((c = reader.read())!=-1){
-//
-//                JTextArea jTextArea = new JTextArea(String.valueOf((char)c)+ "\n");
-//                frame.add(jTextArea);
-//            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+
+        final DefaultListModel model = new DefaultListModel();
+        for (int i = 0; i < nb.length; i++) {
+            model.addElement(nb[i]);
+        }
+
+        final JList list = new JList(model);
+
+        list.setLayoutOrientation(JList.VERTICAL);
+        list.setSize(400, 400);
+        list.setFixedCellWidth(350);
+
+        frame.add(list);
+        JScrollPane scrollPane = new JScrollPane(list);
+        frame.add(scrollPane);
+
+        menuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new addStudent();
+            }
+        });
+
+        //удаляем студента
+        menuItem2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.remove(list.getSelectedIndex());
+                try {
+                    OutputStream f5 = new FileOutputStream("C:\\Users\\IT\\Desktop/document.doc");
+
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                System.out.println(model);
+
+            }
+        });
+
+        menuBar.add(menu);
+        frame.setVisible(true);
+
+        //Выводим по символьно значение файла
+//        FileReader reader = null;
+//        try {
+//            reader = new FileReader("C:\\Users\\IT\\Desktop/document.doc");
+
+        //String mass [] = {"one","two","tree","one","two","tree","one","two","tree","one","two","tree","one","two","tree","one","two","tree","one","two","tree","one","two","tree"};
+
+        //Scanner scanner = new Scanner(reader);
+
+//            while (scanner.hasNextInt()) {
+//                mass = scanner.nextLine();
+//
+//            }
+
+        //делаем форму вывода листом и добавляем данные
+
+
+//            ArrayList catnamesList = new ArrayList();
+//            int c;
+//            while ((c = reader.read()) != -1) {
+//                catnamesList.add(c);
+//              //  System.out.println(catnamesList);
+//                JList list = new JList();
+//                list.setLayoutOrientation(JList.VERTICAL);
+//                list.setSize(400,400);
+//                list.setFixedCellWidth(350);
+//                frame.add(list);
+//                JScrollPane scrollPane = new JScrollPane(list);
+//                frame.add(scrollPane);
+//            }
+//            String[] nb = new String[100];
+//            System.out.println(nb);
+//            String line = null;
+//            try(BufferedReader br = new BufferedReader(reader)) {
+//            int i = 0;
+//                while((line = br.readLine()) != null){
+//                    nb[i] = i+ " " + line;
+//                    System.out.println(i + line);
+//                    i++;
+//
+//
+//                  //frame.add();
+//                }
+//            }
+//
+//
+//
+//
+//
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
 
         // TableModel model = new TableModel();
 
@@ -96,9 +173,7 @@ public class TestStudent {
         // frame.add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(1, 1, 1, 1), 0, 0));
 
 
-        menuBar.add(menu);
 
-        frame.setVisible(true);
 
         //student.init("Andrey", "0674682939", "Kiev", "ccc", 4000);
 

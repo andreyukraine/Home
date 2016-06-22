@@ -33,7 +33,7 @@ public class addStudent extends JFrame {
         final JLabel phone = new JLabel("phone");
         final JTextArea phonetext = new JTextArea();
 
-        JButton add = new JButton("Добавить");
+        JButton add = new JButton("Записать");
 
 
         add.addActionListener(new ActionListener() {
@@ -45,7 +45,7 @@ public class addStudent extends JFrame {
                     String getphonetext = phonetext.getText();
 
                     new Write(getnametext, getphonetext);
-                    System.out.println("Test");
+                    System.out.println("Записали");
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
